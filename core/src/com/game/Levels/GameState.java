@@ -51,7 +51,7 @@ public class GameState implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(background,0,0, game.WIDTH, game.HEIGHT);
+        game.batch.draw(background,0,0, 800, 600);
         float x= 0;
         float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
