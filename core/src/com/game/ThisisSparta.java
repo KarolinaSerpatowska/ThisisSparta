@@ -6,7 +6,7 @@ import com.game.Levels.GameState;
 
 public class ThisisSparta extends Game {
 
-	public static  final int WIDTH=800;
+	public static  final int WIDTH=1920;
 	public static final int HEIGHT=WIDTH/16*9;
 	public SpriteBatch batch;
 	

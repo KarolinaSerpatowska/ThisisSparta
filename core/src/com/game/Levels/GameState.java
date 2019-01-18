@@ -49,19 +49,23 @@ public class GameState implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        game.batch.setProjectionMatrix (gamecamera.combined);
+
         game.batch.begin();
 
-        game.batch.draw(background,0,0, 800, 600);
+        game.batch.draw(background,0,0, 1920, 1080);
         float x= 0;
         float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
             game.batch.draw(ground.get(i), x, 0);
             x+=60;
         }
+        gamecamera.position.set(player.getX(), player.getY(), 0);
+        gamecamera.update();
+
         game.batch.draw(player.getSprite(), player.getSprite().getX(),player.getSprite().getY());
         player.render();
-        gamecamera.position.set(player.getX(), player.getY(), 0); //!!!!
-        gamecamera.update(); //!!!!!
+
 
 
         game.batch.end();
