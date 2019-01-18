@@ -35,7 +35,7 @@ public class GameState implements Screen {
         for(int i=0;i<20;i++){
             ground.add(new Sprite(new Texture("ground.png")));
         }
-        player=new Player(new Sprite(new Texture("spartanidleright.png")), this);
+        player=new Player(new Sprite(new Texture("spartanidleright.png")), 0, 0, 64, 64);
     }
 
 
@@ -58,8 +58,11 @@ public class GameState implements Screen {
             game.batch.draw(ground.get(i), x, 0);
             x+=60;
         }
-        game.batch.draw(player.getSprite(), 300,300);
+        game.batch.draw(player.getSprite(), player.getSprite().getX(),player.getSprite().getY());
         player.render();
+        gamecamera.position.set(player.getX(), player.getY(), 0); //!!!!
+        gamecamera.update(); //!!!!!
+
 
         game.batch.end();
 
