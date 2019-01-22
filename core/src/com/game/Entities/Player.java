@@ -3,41 +3,38 @@ package com.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Player extends Mob {
 
-    public Player(Sprite sprite, float x, float y, float width, float height) {
-        super(sprite, x, y, width, height);
+    public Player(Sprite sprite) {
+        super(sprite);
+        this.setX(0);
+        this.setY(64);
+        x=0;
+        y=64;
     }
 
     @Override
-    public void create() {
-
+    public void draw(Batch batch) {
+        update(Gdx.graphics.getDeltaTime());
+        super.draw(batch);
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void render() {
-
-        bounds.x = x - bounds.width / 2;
-        bounds.y = y - bounds.height / 2;
+    public void update(float delta) {
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             x+=2;
-            sprite.setX(x);
+            setX(x);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             x+=-2;
-            sprite.setX(x);
+            setX(x);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             y+=2;
-            sprite.setY(y);
+            setY(y);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //atak???
@@ -45,21 +42,6 @@ public class Player extends Mob {
         if(Gdx.input.isKeyPressed(Input.Keys.F)) {
             //atak2???
         }
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 
 

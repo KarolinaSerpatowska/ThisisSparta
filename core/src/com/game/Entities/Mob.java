@@ -1,27 +1,18 @@
 package com.game.Entities;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
-public abstract class Mob implements ApplicationListener {
+public abstract class Mob extends Sprite {
 
-    protected Sprite sprite;
+    protected int width;
+    protected int height;
+
     protected float x;
     protected float y;
-    protected Rectangle bounds;
 
-    public Mob(Sprite sprite,float x, float y, float width, float height){
-        this.sprite=sprite;
-        this.x=x;
-        this.y=y;
-
-        this.bounds = new Rectangle(x - width / 2, y - height / 2, width, height);
-    }
-
-    public Sprite getSprite() {
-        return sprite;
+    public Mob(Sprite sprite){
+        super(sprite);
     }
 
     public float getX() {
@@ -32,7 +23,4 @@ public abstract class Mob implements ApplicationListener {
         return y;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
-    }
 }

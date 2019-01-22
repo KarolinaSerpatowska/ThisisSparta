@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.Entities.Player;
@@ -35,7 +36,9 @@ public class GameState implements Screen {
         for(int i=0;i<20;i++){
             ground.add(new Sprite(new Texture("ground.png")));
         }
-        player=new Player(new Sprite(new Texture("spartanidleright.png")), 0, 0, 64, 64);
+
+        player=new Player(new Sprite(new Texture("spartanidleright.png")));
+
     }
 
 
@@ -62,10 +65,7 @@ public class GameState implements Screen {
         }
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
-
-        game.batch.draw(player.getSprite(), player.getSprite().getX(),player.getSprite().getY());
-        player.render();
-
+        player.draw(game.batch);
 
 
         game.batch.end();
