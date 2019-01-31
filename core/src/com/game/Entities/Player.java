@@ -2,13 +2,11 @@ package com.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Player extends Mob {
 
     public Player(Sprite sprite) {
-
         super(sprite);
         this.setX(0);
         this.setY(64);
@@ -17,12 +15,11 @@ public class Player extends Mob {
     }
 
     @Override
-    public void draw(Batch batch) {
-        update(Gdx.graphics.getDeltaTime());
-        super.draw(batch);
-    }
-
     public void update(float delta) {
+
+        falling();
+       // y-=gravity;
+        //setY(y);
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             x+=2;
