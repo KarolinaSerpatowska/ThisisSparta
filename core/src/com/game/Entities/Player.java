@@ -1,6 +1,5 @@
 package com.game.Entities;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Player extends Mob {
 
     public Player(Sprite sprite) {
+
         super(sprite);
         this.setX(0);
         this.setY(64);
@@ -33,7 +33,7 @@ public class Player extends Mob {
             setX(x);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            y+=2;
+             y+=2;
             setY(y);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {

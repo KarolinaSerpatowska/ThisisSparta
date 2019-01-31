@@ -22,8 +22,7 @@ public class GameState implements Screen {
     private OrthographicCamera gamecamera;
     private Viewport gamePort;
     private Hud hud;
-    private Texture background;
-    private ArrayList<Sprite> ground;
+    private World world;
     private Player player;
 
     public GameState(ThisisSparta game){
@@ -31,12 +30,7 @@ public class GameState implements Screen {
         gamecamera=new OrthographicCamera();
         gamePort=new FitViewport(ThisisSparta.WIDTH,ThisisSparta.HEIGHT,gamecamera);
         hud=new Hud(game.batch);
-        background=new Texture("background.png");
-        ground=new ArrayList<Sprite>();
-        for(int i=0;i<20;i++){
-            ground.add(new Sprite(new Texture("ground.png")));
-        }
-
+        world=new World();
         player=new Player(new Sprite(new Texture("spartanidleright.png")));
 
     }
@@ -56,11 +50,11 @@ public class GameState implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(background,0,0, 1920, 1080);
+        game.batch.draw(world.getBackground(),0,0, 1920, 1080);
         float x= 0;
         float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
-            game.batch.draw(ground.get(i), x, 0);
+            game.batch.draw(world.getGround().get(i), x, 0);
             x+=60;
         }
         gamecamera.position.set(player.getX(), player.getY(), 0);
