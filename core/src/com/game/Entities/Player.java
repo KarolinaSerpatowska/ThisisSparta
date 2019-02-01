@@ -3,23 +3,27 @@ package com.game.Entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.game.Levels.World;
 
 public class Player extends Mob {
 
-    public Player(Sprite sprite) {
-        super(sprite);
+    public Player(Sprite sprite, World world) {
+        super(sprite,world);
         this.setX(0);
         this.setY(64);
         x=0;
         y=64;
+        collider=new Rectangle(x,y,64,64);
+        width=sprite.getWidth();
+        height=sprite.getHeight();
     }
 
     @Override
     public void update(float delta) {
 
-        falling();
-       // y-=gravity;
-        //setY(y);
+        collider.setPosition(x,y);
+        if(!checkCollision()) falling();
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             x+=2;
@@ -42,4 +46,11 @@ public class Player extends Mob {
     }
 
 
-}
+
+
+
+
+    }
+
+
+

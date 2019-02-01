@@ -31,7 +31,7 @@ public class GameState implements Screen {
         gamePort=new FitViewport(ThisisSparta.WIDTH,ThisisSparta.HEIGHT,gamecamera);
         hud=new Hud(game.batch);
         world=new World();
-        player=new Player(new Sprite(new Texture("spartanidleright.png")));
+        player=new Player(new Sprite(new Texture("spartanidleright.png")),world);
 
     }
 
@@ -52,7 +52,7 @@ public class GameState implements Screen {
 
         game.batch.draw(world.getBackground(),0,0, 1920, 1080);
         float x= 0;
-        float y=game.HEIGHT-64;
+        //float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
             game.batch.draw(world.getGround().get(i), x, 0);
             x+=60;
@@ -92,5 +92,9 @@ public class GameState implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public World getWorld() {
+        return world;
     }
 }
