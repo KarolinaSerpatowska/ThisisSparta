@@ -23,17 +23,20 @@ public class Player extends Mob {
     public void update(float delta) {
 
         collider.setPosition(x,y);
-        if(!checkCollision()) falling();
+        if(!checkCollisionGround()) falling();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if(checkCollisionBot()) canjump=false;
+        else if(!checkCollisionBot()) canjump=true;
+
+        if(Gdx.input.isKeyPressed(Input.Keys.D) && !checkCollisionLeft()) {
             x+=2;
             setX(x);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && !checkCollisionRight()) {
             x+=-2;
             setX(x);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W) && canjump) {
              y+=2;
             setY(y);
         }

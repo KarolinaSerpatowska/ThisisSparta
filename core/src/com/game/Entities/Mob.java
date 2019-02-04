@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Levels.World;
 
+import java.util.ArrayList;
+
 public abstract class Mob extends Sprite {
 
     protected float gravity=0.5f;
@@ -15,7 +17,9 @@ public abstract class Mob extends Sprite {
     protected float height;
     protected World world;
     protected Rectangle collider;
-//    protected boolean canfall=true;
+    protected boolean canjump=true;
+    protected boolean canMoveLeft=true;
+    protected boolean canMoveRight=true;
 
     public Mob(Sprite sprite,World world){
         super(sprite);
@@ -34,7 +38,14 @@ public abstract class Mob extends Sprite {
     public void update(float delta) {
 
         collider.setPosition(x,y);
-        if(!checkCollision()) falling();
+        if(!checkCollisionGround()) falling();
+        if(checkCollisionBot()) canjump=false;
+        else if(!checkCollisionBot()) canjump=true;
+        if(checkCollisionLeft()) canMoveLeft=false;
+        else if(!checkCollisionLeft()) canMoveLeft=true;
+        if(checkCollisionRight()) canMoveRight=false;
+        else if(!checkCollisionRight()) canMoveRight=true;
+
     }
 
     public float getX() {
@@ -50,9 +61,36 @@ public abstract class Mob extends Sprite {
         setY(y);
     }
 
-    protected boolean checkCollision() {
-        for(int i=0; i<world.getColliders().size();i++){
-            if(collider.overlaps(world.getColliders().get(i))){
+    protected boolean checkCollisionGround() {
+        for(int i=0; i<world.getGround_size();i++){
+            if(collider.overlaps(world.getTop(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean checkCollisionBot() {
+        for(int i=0; i<world.getGround_size();i++){
+            if(collider.overlaps(world.getBot(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean checkCollisionLeft() {
+        for(int i=0; i<world.getGround_size();i++){
+            if(collider.overlaps(world.getLeft(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean checkCollisionRight() {
+        for(int i=0; i<world.getGround_size();i++){
+            if(collider.overlaps(world.getRight(i))){
                 return true;
             }
         }

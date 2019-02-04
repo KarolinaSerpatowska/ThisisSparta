@@ -55,7 +55,7 @@ public class GameState implements Screen {
         //float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
             game.batch.draw(world.getGround().get(i), x, 0);
-            x+=60;
+            x+=64;
         }
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
