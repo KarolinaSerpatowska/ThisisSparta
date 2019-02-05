@@ -21,7 +21,6 @@ public class World {
             ground.get(i).setPosition(x,0);
             x+=64;
         }
-
         ground_size=ground.size();
     }
 
@@ -38,6 +37,7 @@ public class World {
     }
 
     public Rectangle getTop(int i){
+
         return new Rectangle(ground.get(i).getX(), ground.get(i).getWidth()-6, ground.get(i).getWidth(),ground.get(i).getHeight()/16);
     }
 
@@ -50,6 +50,6 @@ public class World {
     }
 
     public Rectangle getRight(int i){
-        return new Rectangle(ground.get(i).getHeight(), ground.get(i).getY(), ground.get(i).getWidth()-12,ground.get(i).getHeight()-12);
+        return new Rectangle(ground.get(i).getX()-20, ground.get(i).getY(), ground.get(i).getWidth(),ground.get(i).getHeight()-12);
     }
 }

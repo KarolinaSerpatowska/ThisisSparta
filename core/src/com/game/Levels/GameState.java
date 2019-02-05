@@ -6,15 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.Entities.Player;
 import com.game.ThisisSparta;
 import com.game.UI.Hud;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 public class GameState implements Screen {
 
@@ -52,7 +48,6 @@ public class GameState implements Screen {
 
         game.batch.draw(world.getBackground(),0,0, 1920, 1080);
         float x= 0;
-        //float y=game.HEIGHT-64;
         for (int i=0; i<20;i++) {
             game.batch.draw(world.getGround().get(i), x, 0);
             x+=64;

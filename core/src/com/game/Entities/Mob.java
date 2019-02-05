@@ -13,6 +13,8 @@ public abstract class Mob extends Sprite {
     protected float gravity=0.5f;
     protected float x;
     protected float y;
+    protected float dx;
+    protected float dy;
     protected float width;
     protected float height;
     protected World world;
@@ -38,14 +40,10 @@ public abstract class Mob extends Sprite {
     public void update(float delta) {
 
         collider.setPosition(x,y);
+        move();
         if(!checkCollisionGround()) falling();
         if(checkCollisionBot()) canjump=false;
         else if(!checkCollisionBot()) canjump=true;
-        if(checkCollisionLeft()) canMoveLeft=false;
-        else if(!checkCollisionLeft()) canMoveLeft=true;
-        if(checkCollisionRight()) canMoveRight=false;
-        else if(!checkCollisionRight()) canMoveRight=true;
-
     }
 
     public float getX() {
@@ -54,6 +52,13 @@ public abstract class Mob extends Sprite {
 
     public float getY() {
         return y;
+    }
+
+    public void move(){
+        if(!hasHorizontalCollision()) {
+            x += dx;
+            setX(x);
+        }
     }
 
     protected void falling(){
@@ -79,18 +84,14 @@ public abstract class Mob extends Sprite {
         return false;
     }
 
-    protected boolean checkCollisionLeft() {
-        for(int i=0; i<world.getGround_size();i++){
-            if(collider.overlaps(world.getLeft(i))){
+    protected boolean hasHorizontalCollision(){
+        for(int i=0; i<world.getGround_size();i++) {
+            if(collider.overlaps(world.getRight(i)) && dx<0) {
+                dx = 0;
                 return true;
             }
-        }
-        return false;
-    }
-
-    protected boolean checkCollisionRight() {
-        for(int i=0; i<world.getGround_size();i++){
-            if(collider.overlaps(world.getRight(i))){
+            if(collider.overlaps(world.getLeft(i)) && dx>0) {
+                dx = 0;
                 return true;
             }
         }
