@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Levels.World;
 
-import java.util.ArrayList;
-
 public abstract class Mob extends Sprite {
 
     protected float gravity=0.5f;

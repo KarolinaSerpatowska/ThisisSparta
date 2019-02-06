@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.Levels.World;
 
+import java.util.ArrayList;
+
 public class Player extends Mob {
+
+    private ArrayList<Enemy> enemies;
 
     public Player(Sprite sprite, World world) {
         super(sprite,world);
@@ -22,10 +26,7 @@ public class Player extends Mob {
     @Override
     public void update(float delta) {
 
-        collider.setPosition(x,y);
-
-        move();
-        falling();
+        super.update(delta);
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             dx=2;
@@ -48,9 +49,48 @@ public class Player extends Mob {
 
     }
 
+    @Override
+    public void move() {
+        if(!hasHorizontalCollision() && !hasHorizontalCollisionwithEnemy()){
+            x+=dx;
+            setX(x);
+        }
+        if(!hasVerticalCollision() && !hasVerticalCollisionwithEnemy()) {
+            y+=dy;
+            setY(y);
+        }
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
+    }
 
 
+    private boolean hasHorizontalCollisionwithEnemy(){
+        for(int i=0; i<enemies.size();i++) {
+            if(collider.overlaps(enemies.get(i).getRight(i)) && dx<0) {
+                dx = 0;
+                return true;
+            }
+            if(collider.overlaps(enemies.get(i).getLeft(i)) && dx>0) {
+                dx = 0;
+                return true;
+            }
+        }
+        return false;
+    }
 
+    protected boolean hasVerticalCollisionwithEnemy(){
+        for(int i=0; i<enemies.size();i++) {
+            if((collider.overlaps(enemies.get(i).getTop(i)) && dy<0)) {
+                dy = 0;
+                canjump=true;
+                falling=false;
+                return true;
+            } else falling=true;
+        }
+        return false;
+    }
 
 
     }

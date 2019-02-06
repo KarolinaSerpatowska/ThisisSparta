@@ -8,9 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.game.Entities.Enemy;
 import com.game.Entities.Player;
 import com.game.ThisisSparta;
 import com.game.UI.Hud;
+
+import java.util.ArrayList;
 
 public class GameState implements Screen {
 
@@ -20,6 +23,7 @@ public class GameState implements Screen {
     private Hud hud;
     private World world;
     private Player player;
+    private ArrayList<Enemy> enemies;
 
     public GameState(ThisisSparta game){
         this.game=game;
@@ -27,7 +31,18 @@ public class GameState implements Screen {
         gamePort=new FitViewport(ThisisSparta.WIDTH,ThisisSparta.HEIGHT,gamecamera);
         hud=new Hud(game.batch);
         world=new World();
+        enemies=new ArrayList<Enemy>();
         player=new Player(new Sprite(new Texture("spartanidleright.png")),world);
+        float x=100;
+        float y=64;
+        for(int i=0; i<3; i++){
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y ));
+            enemies.get(i).setPosition(x,y);
+            x+=300;
+        }
+
+        player.setEnemies(enemies);
+
 
     }
 
@@ -56,6 +71,12 @@ public class GameState implements Screen {
         gamecamera.update();
         player.draw(game.batch);
 
+        x=100;
+       for (int i=0; i<3;i++){
+            enemies.get(i).draw(game.batch);
+            x+=300;
+
+       }
 
         game.batch.end();
 
