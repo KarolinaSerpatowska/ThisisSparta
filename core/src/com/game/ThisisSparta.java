@@ -9,11 +9,13 @@ public class ThisisSparta extends Game {
 	public static  final int WIDTH=1920;
 	public static final int HEIGHT=WIDTH/16*9;
 	public SpriteBatch batch;
+	public GameState gameState;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new GameState(this));
+		gameState=new GameState(this);
+		setScreen(gameState);
 	}
 
 	@Override

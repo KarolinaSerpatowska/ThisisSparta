@@ -42,6 +42,14 @@ public abstract class Mob extends Sprite {
 
     }
 
+    public float getDx() {
+        return dx;
+    }
+
+    public float getDy() {
+        return dy;
+    }
+
     public float getX() {
         return x;
     }
@@ -101,5 +109,7 @@ public abstract class Mob extends Sprite {
         }
         return false;
     }
+
+
 
 }

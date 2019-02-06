@@ -6,7 +6,9 @@ import com.game.Levels.World;
 
 public class Enemy extends Mob {
 
-    public Enemy(Sprite sprite, World world,float x, float y) {
+    private Player player;
+
+    public Enemy(Sprite sprite, World world,float x, float y, Player player) {
         super(sprite, world);
         this.x=x;
         this.y=y;
@@ -15,14 +17,18 @@ public class Enemy extends Mob {
         collider=new Rectangle(x,y,64,64);
         width=sprite.getWidth();
         height=sprite.getHeight();
+        this.player=player;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-
-
+        if(x-player.getX()<=300){
+            dx=-2;
+            if(x-player.getX()<=50) dx=0;
+        }
+        else dx=0;
 
 
     }

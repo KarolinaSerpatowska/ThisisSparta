@@ -36,7 +36,7 @@ public class GameState implements Screen {
         float x=100;
         float y=64;
         for(int i=0; i<3; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y ));
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
             enemies.get(i).setPosition(x,y);
             x+=300;
         }
@@ -110,7 +110,4 @@ public class GameState implements Screen {
 
     }
 
-    public World getWorld() {
-        return world;
-    }
 }
