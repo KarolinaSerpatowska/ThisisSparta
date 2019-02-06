@@ -14,7 +14,6 @@ public class Player extends Mob {
         this.setY(64);
         x=0;
         y=64;
-        dy=2;
         collider=new Rectangle(x,y,64,64);
         width=sprite.getWidth();
         height=sprite.getHeight();
@@ -26,28 +25,18 @@ public class Player extends Mob {
         collider.setPosition(x,y);
 
         move();
-
-        if(!checkCollisionGround()) falling();
-        if(checkCollisionBot()) canjump=false;
-        else if(!checkCollisionBot()) canjump=true;
-
-        System.out.println(dx);
+        falling();
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             dx=2;
-          //  x+=dx;
-           // setX(x);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             dx=-2;
-            //x+=-dx;
-          //  setX(x);
         }
         else dx=0;
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W) && canjump) {
-             y+=dy;
-            setY(y);
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            jump(10);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //atak???

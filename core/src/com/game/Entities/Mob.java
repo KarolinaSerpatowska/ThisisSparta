@@ -20,8 +20,7 @@ public abstract class Mob extends Sprite {
     protected World world;
     protected Rectangle collider;
     protected boolean canjump=true;
-    protected boolean canMoveLeft=true;
-    protected boolean canMoveRight=true;
+    protected boolean falling=true;
 
     public Mob(Sprite sprite,World world){
         super(sprite);
@@ -41,9 +40,8 @@ public abstract class Mob extends Sprite {
 
         collider.setPosition(x,y);
         move();
-        if(!checkCollisionGround()) falling();
-        if(checkCollisionBot()) canjump=false;
-        else if(!checkCollisionBot()) canjump=true;
+        falling();
+
     }
 
     public float getX() {
@@ -59,29 +57,21 @@ public abstract class Mob extends Sprite {
             x += dx;
             setX(x);
         }
+        if(!hasVerticalCollision()){
+            y+=dy;
+            setY(y);
+        }
+    }
+
+    protected void jump(double jumpHeight){
+        if(canjump){
+            dy+=jumpHeight;
+            canjump=false;
+        }
     }
 
     protected void falling(){
-        y-=gravity;
-        setY(y);
-    }
-
-    protected boolean checkCollisionGround() {
-        for(int i=0; i<world.getGround_size();i++){
-            if(collider.overlaps(world.getTop(i))){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected boolean checkCollisionBot() {
-        for(int i=0; i<world.getGround_size();i++){
-            if(collider.overlaps(world.getBot(i))){
-                return true;
-            }
-        }
-        return false;
+        if(falling)  dy-=gravity;
     }
 
     protected boolean hasHorizontalCollision(){
@@ -92,6 +82,22 @@ public abstract class Mob extends Sprite {
             }
             if(collider.overlaps(world.getLeft(i)) && dx>0) {
                 dx = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean hasVerticalCollision(){
+        for(int i=0; i<world.getGround_size();i++) {
+            if(collider.overlaps(world.getTop(i)) && dy<0) {
+                dy = 0;
+                canjump=true;
+                falling=false;
+                return true;
+            } else falling=true;
+            if(collider.overlaps(world.getBot(i)) && dy>0) {
+                dy = 0;
                 return true;
             }
         }

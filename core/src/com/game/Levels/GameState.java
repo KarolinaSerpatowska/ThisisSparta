@@ -48,7 +48,7 @@ public class GameState implements Screen {
 
         game.batch.draw(world.getBackground(),0,0, 1920, 1080);
         float x= 0;
-        for (int i=0; i<20;i++) {
+        for (int i=0; i<30;i++) {
             game.batch.draw(world.getGround().get(i), x, 0);
             x+=64;
         }
