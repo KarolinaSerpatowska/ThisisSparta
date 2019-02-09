@@ -2,10 +2,14 @@ package com.game.Levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.Entities.Enemy;
@@ -42,7 +46,7 @@ public class GameState implements Screen {
         }
 
         player.setEnemies(enemies);
-
+        gamecamera.zoom=0.5f;
 
     }
 
@@ -69,6 +73,19 @@ public class GameState implements Screen {
         }
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
+
+        float camX = gamecamera.position.x;
+        float camY = gamecamera.position.y;
+        Vector2 camMin = new Vector2(gamecamera.viewportWidth, gamecamera.viewportHeight);
+        camMin.scl(gamecamera.zoom/2); //bring to center and scale by the zoom level
+        Vector2 camMax = new Vector2(1920, 1080);
+        camMax.sub(camMin); //bring to center
+        //keep camera within borders
+        camX = Math.min(camMax.x, Math.max(camX, camMin.x));
+        camY = Math.min(camMax.y, Math.max(camY, camMin.y));
+        gamecamera.position.set(camX, camY, gamecamera.position.z);
+        gamecamera.update();
+
         player.draw(game.batch);
 
         x=100;

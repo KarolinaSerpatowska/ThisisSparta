@@ -18,6 +18,8 @@ public class Player extends Mob {
         this.setY(64);
         x=0;
         y=64;
+        hp=700;
+        dmg=10;
         collider=new Rectangle(x,y,64,64);
         width=sprite.getWidth();
         height=sprite.getHeight();
@@ -27,6 +29,11 @@ public class Player extends Mob {
     public void update(float delta) {
 
         super.update(delta);
+
+        System.out.println(x);
+        System.out.println(y);
+
+        //System.out.println(hp);
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             dx=2;
@@ -61,18 +68,19 @@ public class Player extends Mob {
         }
     }
 
+
+
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-
     private boolean hasHorizontalCollisionwithEnemy(){
         for(int i=0; i<enemies.size();i++) {
-            if(collider.overlaps(enemies.get(i).getRight(i)) && dx<0) {
+            if(collider.overlaps(enemies.get(i).getRight()) && dx<0) {
                 dx = 0;
                 return true;
             }
-            if(collider.overlaps(enemies.get(i).getLeft(i)) && dx>0) {
+            if(collider.overlaps(enemies.get(i).getLeft()) && dx>0) {
                 dx = 0;
                 return true;
             }
@@ -82,7 +90,7 @@ public class Player extends Mob {
 
     protected boolean hasVerticalCollisionwithEnemy(){
         for(int i=0; i<enemies.size();i++) {
-            if((collider.overlaps(enemies.get(i).getTop(i)) && dy<0)) {
+            if((collider.overlaps(enemies.get(i).getTop()) && dy<0)) {
                 dy = 0;
                 canjump=true;
                 falling=false;
@@ -92,7 +100,13 @@ public class Player extends Mob {
         return false;
     }
 
+    public Rectangle getLeft(){
+        return new Rectangle(x, y, width/64,height-12);
+    }
 
+    public Rectangle getRight(){
+        return new Rectangle(x+35, y, width/64,height-12);
+    }
 
 
     }

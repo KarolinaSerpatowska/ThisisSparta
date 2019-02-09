@@ -15,6 +15,8 @@ public abstract class Mob extends Sprite {
     protected float dy;
     protected float width;
     protected float height;
+    protected int hp;
+    protected int dmg;
     protected World world;
     protected Rectangle collider;
     protected boolean canjump=true;
@@ -42,12 +44,12 @@ public abstract class Mob extends Sprite {
 
     }
 
-    public float getDx() {
-        return dx;
+    public int getHp() {
+        return hp;
     }
 
-    public float getDy() {
-        return dy;
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 
     public float getX() {
