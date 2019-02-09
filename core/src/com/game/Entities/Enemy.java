@@ -2,7 +2,6 @@ package com.game.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Rectangle;
 import com.game.Levels.World;
 
 public class Enemy extends Mob {
@@ -17,7 +16,7 @@ public class Enemy extends Mob {
         this.setX(x);
         this.setY(y);
         dmg = 100;
-        collider = new Rectangle(x, y, 64, 64);
+        hp=30;
         width = sprite.getWidth();
         height = sprite.getHeight();
         this.player = player;
@@ -31,11 +30,12 @@ public class Enemy extends Mob {
             timer+= Gdx.graphics.getDeltaTime();
             attack();
         }
-        
+
+      //  System.out.println("player" + player.getX());
+
         if (x - player.getX() <= 300) {
-            if (player.getX() > x)
-                dx = 2;
-            else if (player.getX() < x) dx = -2;
+            if (player.getX() < x) dx = -2;
+            else if(player.getX()+player.getWidth() > x+width) dx=2;
             if (x - player.getX() <= 50) dx = 0;
         } else dx = 0;
 
@@ -52,17 +52,5 @@ public class Enemy extends Mob {
         if (this.getLeft().overlaps(player.getRight()) && dx <= 0) return true;
         if (this.getRight().overlaps(player.getLeft()) && dx >= 0) return true;
         return false;
-    }
-
-    public Rectangle getTop() {
-        return new Rectangle(x + 20, y + 61, width - 45, height / 16);
-    }
-
-    public Rectangle getLeft() {
-        return new Rectangle(x, y, width / 64, height - 12);
-    }
-
-    public Rectangle getRight() {
-        return new Rectangle(x + 35, y, width / 64, height - 12);
     }
 }

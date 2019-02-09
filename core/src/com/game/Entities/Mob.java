@@ -18,17 +18,17 @@ public abstract class Mob extends Sprite {
     protected int hp;
     protected int dmg;
     protected World world;
-    protected Rectangle collider;
     protected boolean canjump=true;
     protected boolean falling=true;
     protected boolean isdead=false;
+    protected boolean canHit=false;
+    protected boolean attack=false;
 
     public Mob(Sprite sprite,World world){
         super(sprite);
         width=sprite.getWidth();
         height=sprite.getHeight();
         this.world=world;
-        collider=new Rectangle(x,y,64,64);
     }
 
     @Override
@@ -38,10 +38,12 @@ public abstract class Mob extends Sprite {
     }
 
     public void update(float delta) {
-
-        collider.setPosition(x,y);
         move();
         falling();
+
+        if(hp<=0) {
+            isdead = true;
+        }
 
     }
 
@@ -66,7 +68,7 @@ public abstract class Mob extends Sprite {
             x += dx;
             setX(x);
         }
-        if(!hasVerticalCollision()){
+        if(!hasVerticalCollisionwithGround()){
             y+=dy;
             setY(y);
         }
@@ -85,11 +87,11 @@ public abstract class Mob extends Sprite {
 
     protected boolean hasHorizontalCollision(){
         for(int i=0; i<world.getGround_size();i++) {
-            if(collider.overlaps(world.getRight(i)) && dx<0) {
+            if(getLeft().overlaps(world.getRight(i)) && dx<0) {
                 dx = 0;
                 return true;
             }
-            if(collider.overlaps(world.getLeft(i)) && dx>0) {
+            if(getRight().overlaps(world.getLeft(i)) && dx>0) {
                 dx = 0;
                 return true;
             }
@@ -99,13 +101,13 @@ public abstract class Mob extends Sprite {
 
     protected boolean hasVerticalCollision(){
         for(int i=0; i<world.getGround_size();i++) {
-            if(collider.overlaps(world.getTop(i)) && dy<0) {
+            if(this.getBot().overlaps(world.getTop(i)) && dy<0) {
                 dy = 0;
                 canjump=true;
                 falling=false;
                 return true;
             } else falling=true;
-            if(collider.overlaps(world.getBot(i)) && dy>0) {
+            if(this.getTop().overlaps(world.getBot(i)) && dy>0) {
                 dy = 0;
                 return true;
             }
@@ -113,6 +115,37 @@ public abstract class Mob extends Sprite {
         return false;
     }
 
+    protected boolean hasVerticalCollisionwithGround(){
+            if(this.getBot().overlaps(world.getColliderGround()) && dy<0) {
+                dy = 0;
+                canjump=true;
+                falling=false;
+                return true;
+            } else falling=true;
+        return false;
+    }
 
+    public void setDx(float dx) {
+        this.dx = dx;
+    }
 
+    public Rectangle getLeft(){
+        return new Rectangle(x, y, 4,height);
+    }
+
+    public Rectangle getRight(){
+        return new Rectangle(x+width-4, y, 4,height);
+    }
+
+    public Rectangle getTop(){
+        return new Rectangle(x, y+width-4, width-20,4);
+    }
+
+    public Rectangle getBot(){
+        return new Rectangle(x, y, width-20,4);
+    }
+
+    public boolean isIsdead() {
+        return isdead;
+    }
 }

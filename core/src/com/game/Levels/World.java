@@ -36,19 +36,25 @@ public class World {
         return ground_size;
     }
 
+    public  Rectangle getColliderGround(){ //ziemia
+        return new Rectangle(0, 30, 1920,34);
+    }
+
+
     public Rectangle getTop(int i){
-        return new Rectangle(ground.get(i).getX()+20, ground.get(i).getWidth()-6, ground.get(i).getWidth()-45,ground.get(i).getHeight()/16);
+        return new Rectangle(ground.get(i).getX(), ground.get(i).getWidth()-4, ground.get(i).getWidth(),4);
     }
 
     public Rectangle getBot(int i){
-        return new Rectangle(ground.get(i).getX()+20, ground.get(i).getY(), ground.get(i).getWidth()-45,ground.get(i).getHeight()/16);
+        return new Rectangle(ground.get(i).getX(), ground.get(i).getY(), ground.get(i).getWidth(),4);
     }
 
     public Rectangle getLeft(int i){
-        return new Rectangle(ground.get(i).getX(), ground.get(i).getY(), ground.get(i).getWidth()/64,ground.get(i).getHeight()-12);
+        return new Rectangle(ground.get(i).getX(), ground.get(i).getY()+4, 4,ground.get(i).getHeight()-8);
     }
 
     public Rectangle getRight(int i){
-        return new Rectangle(ground.get(i).getX()+35, ground.get(i).getY(), ground.get(i).getWidth()/64,ground.get(i).getHeight()-12);
+        return new Rectangle(ground.get(i).getX()+ground.get(i).getWidth(), ground.get(i).getY()+4, 4,ground.get(i).getHeight()-8);
     }
+
 }
