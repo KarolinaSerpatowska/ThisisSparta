@@ -21,6 +21,7 @@ public abstract class Mob extends Sprite {
     protected Rectangle collider;
     protected boolean canjump=true;
     protected boolean falling=true;
+    protected boolean isdead=false;
 
     public Mob(Sprite sprite,World world){
         super(sprite);

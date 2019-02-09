@@ -30,10 +30,11 @@ public class Player extends Mob {
 
         super.update(delta);
 
-        System.out.println(x);
-        System.out.println(y);
-
-        //System.out.println(hp);
+        if(hp<=0) {
+            System.out.println("end");
+            isdead=true;
+            //hp ustawic z powrotem
+        }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             dx=2;
@@ -101,11 +102,11 @@ public class Player extends Mob {
     }
 
     public Rectangle getLeft(){
-        return new Rectangle(x, y, width/64,height-12);
+        return new Rectangle(x, y, width-20,height-12);
     }
 
     public Rectangle getRight(){
-        return new Rectangle(x+35, y, width/64,height-12);
+        return new Rectangle(x+35, y, width-20,height-12);
     }
 
 
