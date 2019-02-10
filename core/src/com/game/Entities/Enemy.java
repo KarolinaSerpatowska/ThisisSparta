@@ -14,7 +14,7 @@ public class Enemy extends Mob {
     private Player player;
     private float timer;
 
-    protected enum State{IDLE, RUN, ATTACK}
+    protected enum State{IDLE,RUN, ATTACK}
     public State currentState;
     public State previousState;
     TextureRegion currentFrame;
@@ -71,7 +71,7 @@ public class Enemy extends Mob {
     @Override
     public void update(float delta) {
         super.update(delta);
-        getFrame(delta);
+        getFrame();
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
@@ -91,7 +91,7 @@ public class Enemy extends Mob {
 
     }
 
-    public void getFrame(float delta){
+    public void getFrame(){
         previousState=currentState;
         currentState=getState();
         switch (currentState){

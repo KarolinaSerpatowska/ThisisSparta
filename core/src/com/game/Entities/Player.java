@@ -103,7 +103,7 @@ public class Player extends Mob {
     public void update(float delta) {
 
         super.update(delta);
-        getFrame(delta);
+        getFrame();
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
@@ -145,7 +145,7 @@ public class Player extends Mob {
         batch.draw(currentFrame, x,y);
     }
 
-    public void getFrame(float delta){
+    public void getFrame(){
         previousState=currentState;
         currentState=getState();
         switch (currentState){
