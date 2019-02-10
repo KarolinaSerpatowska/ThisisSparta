@@ -82,9 +82,9 @@ public class Enemy extends Mob {
         }
         else attack=false;
 
-        if (java.lang.Math.abs(x - player.getX()) <= 300) {
-            if (player.getX()+64 < x) dx = -2;
-            if(x+64<player.getX()) dx=2;
+        if (java.lang.Math.abs(x - player.getX()) <= 250) {
+            if (player.getX()+64 < x && java.lang.Math.abs(y-player.getY())<=5) dx = -2;
+            if(x+64<player.getX() && java.lang.Math.abs(y-player.getY())<=5) dx=2;
             else if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
         }
         else dx = 0;
