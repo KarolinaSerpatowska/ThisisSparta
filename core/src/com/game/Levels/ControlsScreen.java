@@ -50,7 +50,7 @@ public class ControlsScreen implements Screen {
         table.add(second).padTop(10);
         table.row();
 
-        table.add(button).padTop(10);
+        table.add(button).padTop(100);
         table.row();
 
 

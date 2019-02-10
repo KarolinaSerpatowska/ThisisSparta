@@ -60,13 +60,13 @@ public class MainMenuState implements Screen {
         menuTable.add(title).padTop(10);
         menuTable.row();
 
-        menuTable.add(PLAYbutton).padTop(10);
+        menuTable.add(PLAYbutton).padTop(50);
         menuTable.row();
 
-        menuTable.add(ControlsButton).padTop(10);
+        menuTable.add(ControlsButton).padTop(50);
         menuTable.row();
 
-        menuTable.add(EXITbutton).padTop(10);
+        menuTable.add(EXITbutton).padTop(50);
         menuTable.row();
 
 
