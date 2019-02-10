@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.game.Levels.World;
 
 public class Enemy extends Mob {
@@ -23,6 +22,7 @@ public class Enemy extends Mob {
     protected Animation<TextureRegion> attackanim;
     private float stateTimer;
     protected Texture spritesheet;
+    protected boolean flip=false;
 
     public Enemy(Sprite sprite, World world, float x, float y, Player player) {
         super(sprite, world);
@@ -75,6 +75,9 @@ public class Enemy extends Mob {
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
+        if(dx>0) flip=true;
+        else flip=false;
+
         if (hasHorizontalCollisionwithPlayer()){
             timer+= Gdx.graphics.getDeltaTime();
             attack=true;
@@ -116,7 +119,7 @@ public class Enemy extends Mob {
     @Override
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
-        batch.draw(currentFrame, x,y);
+        batch.draw(currentFrame, flip ? x+width : x, y, flip ? -width : width, height);
     }
 
     public void attack() {
