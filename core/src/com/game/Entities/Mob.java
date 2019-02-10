@@ -76,7 +76,7 @@ public abstract class Mob extends Sprite {
             x += dx;
             setX(x);
         }
-        if(!hasVerticalCollisionwithGround()){
+        if(!hasVerticalCollisionwithGround() && !hasVerticalCollision()){
             y+=dy;
             setY(y);
         }
@@ -94,7 +94,7 @@ public abstract class Mob extends Sprite {
     }
 
     protected boolean hasHorizontalCollision(){
-        for(int i=0; i<world.getGround_size();i++) {
+        for(int i=0; i<world.getTiles().size();i++) {
             if(getLeft().overlaps(world.getRight(i)) && dx<0) {
                 dx = 0;
                 return true;
@@ -108,7 +108,7 @@ public abstract class Mob extends Sprite {
     }
 
     protected boolean hasVerticalCollision(){
-        for(int i=0; i<world.getGround_size();i++) {
+        for(int i=0; i<world.getTiles().size();i++) {
             if(this.getBot().overlaps(world.getTop(i)) && dy<0) {
                 dy = 0;
                 canjump=true;

@@ -1,5 +1,11 @@
 background
 https://opengameart.org/content/backgrounds-for-2d-platformers
 
-Heavy/Light Bandit
+Light Bandit
 https://stensven.itch.io/light-heavy-bandit
+
+Ghost
+https://lionheart963.itch.io/wizard
+
+Skin/buttons
+https://github.com/czyzby/gdx-skins/tree/master/craftacular

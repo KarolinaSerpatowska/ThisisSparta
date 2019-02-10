@@ -28,7 +28,7 @@ public class ControlsScreen implements Screen {
     public ControlsScreen(ThisisSparta game) {
         this.game=game;
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
         table=new Table();
         table.top();
         table.setFillParent(true);

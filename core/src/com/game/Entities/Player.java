@@ -182,11 +182,11 @@ public class Player extends Mob {
 
     @Override
     public void move() {
-        if(!hasHorizontalCollisionwithEnemy()){
+        if(!hasHorizontalCollisionwithEnemy() && !hasHorizontalCollision()){
            x+=dx;
            setX(x);
         }
-        if(!hasVerticalCollisionwithGround() && !hasVerticalCollisionwithEnemy()) {
+        if(!hasVerticalCollisionwithGround() && !hasVerticalCollisionwithEnemy() && !hasVerticalCollision()) {
             y+=dy;
             setY(y);
         }

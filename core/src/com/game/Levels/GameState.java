@@ -36,15 +36,15 @@ public class GameState implements Screen {
         player=new Player(new Sprite(new Texture("spartanidleright.png")),world);
         float x=100;
         float y=64;
-        for(int i=0; i<3; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
-            enemies.get(i).setPosition(x,y);
-            x+=300;
-        }
+       // for(int i=0; i<3; i++){
+           // enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
+           // enemies.get(i).setPosition(x,y);
+           // x+=300;
+      //  }
 
         player.setEnemies(enemies);
 
-        gamecamera.zoom=0.5f;
+     //   gamecamera.zoom=0.5f;
 
     }
 
@@ -66,10 +66,16 @@ public class GameState implements Screen {
         game.batch.draw(world.getBackground(),0,0, 1920, 1080);
 
         float x= 0;
-        for (int i=0; i<30;i++) {
+        for (int i=0; i<world.getGround_size();i++) {
             game.batch.draw(world.getGround().get(i), x, 0);
             x+=64;
         }
+
+        for(int i=0; i<world.getTiles().size();i++){
+            game.batch.draw(world.getTiles().get(i),world.getTiles().get(i).getX(),world.getTiles().get(i).getY());
+        }
+
+
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
 

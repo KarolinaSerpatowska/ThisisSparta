@@ -27,7 +27,7 @@ public class MainMenuState implements Screen {
 
         this.game=game;
         stage = new Stage(new ScreenViewport());
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
         menuTable=new Table();
         menuTable.top();
         menuTable.setFillParent(true);
