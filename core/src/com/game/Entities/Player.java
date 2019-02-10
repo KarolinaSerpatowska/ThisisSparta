@@ -19,7 +19,7 @@ public class Player extends Mob {
     private float timer;
     private int score=0;
 
-    public enum State{IDLE_RIGHT, IDLE_LEFT, RUN_LEFT, RUN_RIGHT, ATTACK_RIGHT, ATTACK_LEFT}
+    private enum State{IDLE_RIGHT, IDLE_LEFT, RUN_LEFT, RUN_RIGHT, ATTACK_RIGHT, ATTACK_LEFT}
     public State currentState;
     public State previousState;
     TextureRegion currentFrame;
@@ -58,7 +58,7 @@ public class Player extends Mob {
         attackLeftSheet=new Texture("spartanattackleft.png");
 
         TextureRegion[][] tmp = TextureRegion.split(runRightSheet,runRightSheet.getWidth() / 6,runRightSheet.getHeight() /1);
-        TextureRegion[] walkrightFrames = new TextureRegion[6 * 1];
+        TextureRegion[] walkrightFrames = new TextureRegion[6];
         int index = 0;
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 6; j++) {
@@ -66,7 +66,7 @@ public class Player extends Mob {
             }
         }
         tmp = TextureRegion.split(runLeftSheet,runLeftSheet.getWidth() / 6,runLeftSheet.getHeight() /1);
-        TextureRegion[] walkleftFrames = new TextureRegion[6 * 1];
+        TextureRegion[] walkleftFrames = new TextureRegion[6];
         index = 0;
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 6; j++) {
@@ -74,7 +74,7 @@ public class Player extends Mob {
             }
         }
         tmp = TextureRegion.split(attackRightSheet,attackRightSheet.getWidth() / 2,attackRightSheet.getHeight() /1);
-        TextureRegion[] attackrightframes = new TextureRegion[2 * 1];
+        TextureRegion[] attackrightframes = new TextureRegion[2];
         index = 0;
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 2; j++) {
@@ -82,7 +82,7 @@ public class Player extends Mob {
             }
         }
         tmp = TextureRegion.split(attackLeftSheet,attackLeftSheet.getWidth() / 2,attackLeftSheet.getHeight() /1);
-        TextureRegion[] attackleftframes = new TextureRegion[2 * 1];
+        TextureRegion[] attackleftframes = new TextureRegion[2];
         index = 0;
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 2; j++) {
