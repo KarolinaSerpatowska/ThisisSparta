@@ -29,9 +29,6 @@ public class GameState implements Screen {
     private Player player;
     private ArrayList<Enemy> enemies;
 
-    private ShapeRenderer shapeRenderer;
-    static private boolean projectionMatrixSet;
-
     public GameState(ThisisSparta game){
         this.game=game;
         gamecamera=new OrthographicCamera();
@@ -50,9 +47,6 @@ public class GameState implements Screen {
 
         player.setEnemies(enemies);
         gamecamera.zoom=0.5f;
-
-        shapeRenderer = new ShapeRenderer();
-        projectionMatrixSet = false;
 
     }
 
@@ -95,54 +89,22 @@ public class GameState implements Screen {
 
         player.draw(game.batch);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(0, 30, 1920, 34);
-
-
         x=100;
        for (int i=0; i<enemies.size();i++){
-           if(enemies.get(i).isIsdead()) enemies.remove(i);
+           if(enemies.get(i).isIsdead()) {
+               enemies.remove(i);
+               player.setScore();
+           }
            else {
                enemies.get(i).draw(game.batch);
-
-               shapeRenderer.setColor(Color.RED);
-               shapeRenderer.rect(enemies.get(i).getX(), enemies.get(i).getY(), 4, enemies.get(i).getHeight());
-               shapeRenderer.setColor(Color.WHITE);
-               shapeRenderer.rect(enemies.get(i).getX() + enemies.get(i).getWidth() - 4, enemies.get(i).getY(), 4, enemies.get(i).getHeight());
-               shapeRenderer.setColor(Color.MAGENTA);
-               shapeRenderer.rect(enemies.get(i).getX(), enemies.get(i).getY() + enemies.get(i).getHeight() - 4, enemies.get(i).getWidth(), 4);
-               shapeRenderer.setColor(Color.BLUE);
-               shapeRenderer.rect(enemies.get(i).getX(), enemies.get(i).getY(), enemies.get(i).getWidth(), 4);
-
-
            }
            x += 300;
        }
         game.batch.end();
-        //prawo
-        //return new Rectangle(x+35, y, width-20,height-12);
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.rect(player.getX()+player.getWidth()-20, player.getY()+4, 20,player.getHeight()-8);
 
-        //lewo
-        // return new Rectangle(x, y, width-20,height-12);
-        shapeRenderer.setColor(Color.MAGENTA);
-        shapeRenderer.rect(player.getX()+20, player.getY()+4, 4,player.getHeight()-8);
-
-        //top
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(player.getX()+20, player.getY()+player.getHeight()-4, player.getWidth()-20,4);
-
-        //bot
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(player.getX()+20, player.getY(), player.getWidth()-20,4);
-
-//=====================================================================================
-        shapeRenderer.setProjectionMatrix(game.batch.getProjectionMatrix());
-        shapeRenderer.end();
-
-//===================================================================================
+        hud.setHp(player.getHp());
+        hud.setScore(player.getScore());
+        hud.update(Gdx.graphics.getDeltaTime());
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();

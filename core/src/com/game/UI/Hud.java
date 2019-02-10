@@ -19,13 +19,13 @@ public class Hud {
     private int score;
     private int hp;
 
-    Label countupLabel;
+    Label pointsLabel;
+    Label hpPoints;
     Label scoreLabel;
-    Label timeLabel;
     Label hpLabel;
 
     public Hud(SpriteBatch sb){
-        score=300;
+        score=0;
         hp=700;
 
         viewport =new FitViewport(ThisisSparta.WIDTH,ThisisSparta.HEIGHT, new OrthographicCamera());
@@ -35,18 +35,37 @@ public class Hud {
         table.top();
         table.setFillParent(true);
 
-        countupLabel=new Label(String.format("%03d",score),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        scoreLabel=new Label(String.format("%03d",hp),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        timeLabel=new Label("SCORE",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        pointsLabel=new Label(String.format("%03d",score),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        hpPoints=new Label(String.format("%03d",hp),new Label.LabelStyle(new BitmapFont(),Color.WHITE));
+        scoreLabel=new Label("SCORE",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
         hpLabel=new Label("HP ",new Label.LabelStyle(new BitmapFont(),Color.WHITE));
 
         table.add(hpLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
+        table.add(scoreLabel).expandX().padTop(10);
         table.row();
-        table.add(scoreLabel).expandX();
-        table.add(countupLabel).expandX();
+        table.add(hpPoints).expandX();
+        table.add(pointsLabel).expandX();
+
+        pointsLabel.setFontScale(4);
+        hpPoints.setFontScale(4);
+        scoreLabel.setFontScale(4);
+        hpLabel.setFontScale(4);
 
         stage.addActor(table);
     }
 
+    public void update(float delta){
+       hpPoints.setText(hp);
+       pointsLabel.setText(score);
+    }
+
+    public void setHp(int hp) {
+        if(hp<0) hp=0;
+        this.hp = hp;
+
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

@@ -13,6 +13,7 @@ public class Player extends Mob {
     private ArrayList<Enemy> enemies;
     private Enemy curEnemy;
     private float timer;
+    private int score=0;
 
     public Player(Sprite sprite, World world) {
         super(sprite,world);
@@ -71,8 +72,11 @@ public class Player extends Mob {
     private void attack(){
         if(canHit){
             curEnemy.setHp(curEnemy.getHp()-dmg);
-            System.out.println(curEnemy.getHp());
         }
+    }
+
+    public void setScore(){
+        score+=10;
     }
 
 
@@ -105,6 +109,10 @@ public class Player extends Mob {
             } else falling=true;
         }
         return false;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     @Override

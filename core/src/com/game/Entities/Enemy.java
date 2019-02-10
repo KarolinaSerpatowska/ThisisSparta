@@ -31,13 +31,11 @@ public class Enemy extends Mob {
             attack();
         }
 
-      //  System.out.println("player" + player.getX());
-
         if (x - player.getX() <= 300) {
-            if (player.getX() < x) dx = -2;
-            else if(player.getX()+player.getWidth() > x+width) dx=2;
+            if (player.getX()+64 < x) dx = -2;
             if (x - player.getX() <= 50) dx = 0;
-        } else dx = 0;
+        }
+        else dx = 0;
 
     }
 
