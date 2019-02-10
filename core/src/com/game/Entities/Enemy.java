@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.game.Levels.World;
 
 public class Enemy extends Mob {
@@ -17,11 +18,11 @@ public class Enemy extends Mob {
     public State currentState;
     public State previousState;
     TextureRegion currentFrame;
-    private Animation<TextureRegion> idle;
-    private Animation<TextureRegion> run;
-    private Animation<TextureRegion> attackanim;
+    protected Animation<TextureRegion> idle;
+    protected Animation<TextureRegion> run;
+    protected Animation<TextureRegion> attackanim;
     private float stateTimer;
-    private Texture spritesheet;
+    protected Texture spritesheet;
 
     public Enemy(Sprite sprite, World world, float x, float y, Player player) {
         super(sprite, world);
@@ -29,7 +30,7 @@ public class Enemy extends Mob {
         this.y = y;
         this.setX(x);
         this.setY(y);
-        dmg = 100;
+        dmg = 50;
         hp=30;
         width = sprite.getWidth();
         height = sprite.getHeight();
@@ -81,9 +82,10 @@ public class Enemy extends Mob {
         }
         else attack=false;
 
-        if (x - player.getX() <= 300) {
+        if (java.lang.Math.abs(x - player.getX()) <= 300) {
             if (player.getX()+64 < x) dx = -2;
-            if (x - player.getX() <= 50) dx = 0;
+            if(x+64<player.getX()) dx=2;
+            else if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
         }
         else dx = 0;
 

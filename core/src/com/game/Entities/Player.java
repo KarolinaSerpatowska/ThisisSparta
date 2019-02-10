@@ -213,6 +213,7 @@ public class Player extends Mob {
                 curEnemy=enemies.get(i);
                 return true;
             }
+
             if(this.getRight().overlaps(enemies.get(i).getLeft()) && dx>=0) {
                 curEnemy=enemies.get(i);
                 return true;

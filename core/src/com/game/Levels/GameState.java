@@ -43,6 +43,7 @@ public class GameState implements Screen {
         }
 
         player.setEnemies(enemies);
+
         gamecamera.zoom=0.5f;
 
     }
@@ -97,6 +98,7 @@ public class GameState implements Screen {
            }
            x += 300;
        }
+
         game.batch.end();
 
         hud.setHp(player.getHp());
