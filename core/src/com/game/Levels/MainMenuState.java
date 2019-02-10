@@ -71,12 +71,12 @@ public class MainMenuState implements Screen {
 
 
         stage.addActor(menuTable);
-        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
 

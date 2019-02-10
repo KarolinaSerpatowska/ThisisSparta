@@ -55,12 +55,12 @@ public class ControlsScreen implements Screen {
 
 
         stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
