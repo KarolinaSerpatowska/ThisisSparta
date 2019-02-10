@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Levels.ControlsScreen;
 import com.game.Levels.GameState;
 import com.game.Levels.MainMenuState;
+import com.game.Levels.WinScreen;
 
 public class ThisisSparta extends Game {
 
@@ -15,21 +16,26 @@ public class ThisisSparta extends Game {
 	public GameState gameState;
 	public MainMenuState mainMenu;
 	public ControlsScreen controlsScreen;
+	public WinScreen winScreen;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gameState=new GameState(this);
 		mainMenu=new MainMenuState(this);
 		controlsScreen=new ControlsScreen(this);
+		winScreen=new WinScreen(this);
 
 		setScreen(mainMenu);
 	}
 
 	public void changeScreen(String name){
 		if(name=="mainmenu") setScreen(mainMenu);
-		else if(name=="game") setScreen(gameState);
+		else if(name=="game") {
+			gameState=new GameState(this);
+			setScreen(gameState);
+		}
 		else if(name=="controls") setScreen(controlsScreen);
+		else if(name=="win") setScreen(winScreen);
 		else if(name=="exit") Gdx.app.exit();
 	}
 

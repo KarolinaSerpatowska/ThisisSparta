@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.Entities.Enemy;
+import com.game.Entities.Ghost;
 import com.game.Entities.Player;
 import com.game.ThisisSparta;
 import com.game.UI.Hud;
@@ -25,6 +27,8 @@ public class GameState implements Screen {
     private World world;
     private Player player;
     private ArrayList<Enemy> enemies;
+    private float timer;
+    private Ghost ghost;
 
     public GameState(ThisisSparta game){
         this.game=game;
@@ -52,6 +56,9 @@ public class GameState implements Screen {
         enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
         enemies.get(4).setPosition(x,y);
 
+        ghost=new Ghost(new Sprite(new Texture("wizard idle.png")));
+
+        timer=0;
         player.setEnemies(enemies);
 
         gamecamera.zoom=0.5f;
@@ -102,6 +109,18 @@ public class GameState implements Screen {
         gamecamera.update();
 
         player.draw(game.batch);
+        ghost.draw(game.batch);
+
+        if(player.getHp()<=0){
+            timer+= Gdx.graphics.getDeltaTime();
+            if(timer>0.5){
+                game.changeScreen("mainmenu");
+            }
+        }
+
+        if(ghost.getX()-player.getX()<=15){
+                game.changeScreen("win");
+        }
 
         x=100;
        for (int i=0; i<enemies.size();i++){
