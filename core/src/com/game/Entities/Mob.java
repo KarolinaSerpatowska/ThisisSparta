@@ -23,6 +23,8 @@ public abstract class Mob extends Sprite {
     protected boolean isdead=false;
     protected boolean canHit=false;
     protected boolean attack=false;
+    protected boolean moveleft=false;
+    protected boolean moveright=false;
 
     public Mob(Sprite sprite,World world){
         super(sprite);
@@ -38,6 +40,12 @@ public abstract class Mob extends Sprite {
     }
 
     public void update(float delta) {
+        if(dx>0) moveright=true;
+        else if(dx<0) moveleft=true;
+        else {
+            moveright=false;
+            moveleft=false;
+        }
         move();
         falling();
 
