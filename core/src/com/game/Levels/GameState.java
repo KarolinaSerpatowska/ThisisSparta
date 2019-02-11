@@ -44,8 +44,11 @@ public class GameState implements Screen {
             enemies.get(i).setPosition(x,y);
             x+=128;
         }
-        enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true ));
-        enemies.get(10).setPosition(x,y);
+        for(int i=10; i<14; i++){
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true ));
+            enemies.get(i).setPosition(x,y);
+            x+=10;
+        }
 
         ghost=new Ghost(new Sprite(new Texture("wizard idle.png")));
 
@@ -116,7 +119,7 @@ public class GameState implements Screen {
                     player.setScore();
                     enemies.remove(i);
                 }
-                enemies.get(i).draw(game.batch);
+                if(!enemies.isEmpty()) enemies.get(i).draw(game.batch);
             }
         }
         game.batch.end();
