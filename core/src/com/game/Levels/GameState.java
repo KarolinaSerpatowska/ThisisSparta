@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -41,17 +40,19 @@ public class GameState implements Screen {
         float y=64;
         float x=120;
         for(int i=0; i<10; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,false ));
             enemies.get(i).setPosition(x,y);
             x+=128;
         }
+        enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true ));
+        enemies.get(10).setPosition(x,y);
 
         ghost=new Ghost(new Sprite(new Texture("wizard idle.png")));
 
         timer=0;
         player.setEnemies(enemies);
 
-        gamecamera.zoom=0.2f;
+       // gamecamera.zoom=0.2f;
 
     }
 
@@ -101,7 +102,7 @@ public class GameState implements Screen {
             timer+= Gdx.graphics.getDeltaTime();
             if(timer>0.5){
                 timer=0;
-                game.changeScreen("mainmenu");
+                game.changeScreen("lose");
             }
         }
 
@@ -109,7 +110,6 @@ public class GameState implements Screen {
                 game.changeScreen("win");
         }
 
-        x=100;
        for (int i=0; i<enemies.size();i++){
            if(enemies.get(i).isIsdead()) {
                player.setScore();
@@ -118,7 +118,6 @@ public class GameState implements Screen {
            else {
                enemies.get(i).draw(game.batch);
            }
-           x += 300;
        }
 
         game.batch.end();

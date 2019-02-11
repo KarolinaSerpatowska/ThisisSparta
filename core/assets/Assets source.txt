@@ -1,7 +1,7 @@
 background
 https://opengameart.org/content/backgrounds-for-2d-platformers
 
-Light Bandit
+Light/Heavy Bandit
 https://stensven.itch.io/light-heavy-bandit
 
 Ghost

@@ -3,10 +3,7 @@ package com.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Levels.ControlsScreen;
-import com.game.Levels.GameState;
-import com.game.Levels.MainMenuState;
-import com.game.Levels.WinScreen;
+import com.game.Levels.*;
 
 public class ThisisSparta extends Game {
 
@@ -17,6 +14,7 @@ public class ThisisSparta extends Game {
 	public MainMenuState mainMenu;
 	public ControlsScreen controlsScreen;
 	public WinScreen winScreen;
+	public LoseScreen loseScreen;
 	
 	@Override
 	public void create () {
@@ -24,6 +22,7 @@ public class ThisisSparta extends Game {
 		mainMenu=new MainMenuState(this);
 		controlsScreen=new ControlsScreen(this);
 		winScreen=new WinScreen(this);
+		loseScreen=new LoseScreen(this);
 
 		setScreen(mainMenu);
 	}
@@ -33,9 +32,11 @@ public class ThisisSparta extends Game {
 		else if(name=="game") {
 			gameState=new GameState(this);
 			setScreen(gameState);
+			Gdx.input.setInputProcessor(null);
 		}
 		else if(name=="controls") setScreen(controlsScreen);
 		else if(name=="win") setScreen(winScreen);
+		else if(name=="lose") setScreen(loseScreen);
 		else if(name=="exit") Gdx.app.exit();
 	}
 

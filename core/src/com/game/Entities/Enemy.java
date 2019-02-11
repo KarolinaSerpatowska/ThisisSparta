@@ -23,7 +23,7 @@ public class Enemy extends Mob {
     private float stateTimer;
     protected Texture spritesheet;
 
-    public Enemy(Sprite sprite, World world, float x, float y, Player player) {
+    public Enemy(Sprite sprite, World world, float x, float y, Player player, boolean boss) {
         super(sprite, world);
         this.x = x;
         this.y = y;
@@ -34,11 +34,16 @@ public class Enemy extends Mob {
         width = sprite.getWidth();
         height = sprite.getHeight();
         this.player = player;
+        if(boss) {
+            dmg=100;
+            hp=50;
+        }
 
         currentState= State.IDLE;
         previousState= State.IDLE;
         stateTimer=0;
-        spritesheet=new Texture("LightBandit_Spritesheet.png");
+        if(boss) spritesheet=new Texture("HeavyBandit_Spritesheet.png");
+        else spritesheet=new Texture("LightBandit_Spritesheet.png");
 
         TextureRegion[][] tmp = TextureRegion.split(spritesheet,spritesheet.getWidth() / 8,spritesheet.getHeight() /7);
         TextureRegion[] walkFrames = new TextureRegion[8];

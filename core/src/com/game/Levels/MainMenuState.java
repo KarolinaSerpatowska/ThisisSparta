@@ -72,6 +72,7 @@ public class MainMenuState implements Screen {
 
         stage.addActor(menuTable);
 
+
     }
 
     @Override

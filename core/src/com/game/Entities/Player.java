@@ -198,7 +198,6 @@ public class Player extends Mob {
         score+=10;
     }
 
-
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
