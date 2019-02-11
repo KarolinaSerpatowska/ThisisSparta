@@ -29,6 +29,7 @@ public class ControlsScreen implements Screen {
         this.game=game;
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
+
         table=new Table();
         table.top();
         table.setFillParent(true);
@@ -84,12 +85,10 @@ public class ControlsScreen implements Screen {
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override

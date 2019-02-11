@@ -23,16 +23,12 @@ public class MainMenuState implements Screen {
     private TextButton ControlsButton;
     private Table menuTable;
     private Label title;
-    private Music music;
 
     public MainMenuState(ThisisSparta game) {
 
         this.game=game;
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
-        music = Gdx.audio.newMusic(Gdx.files.internal("Rise of spirit.mp3"));
-        music.setLooping(true);
-        music.play();
 
         menuTable=new Table();
         menuTable.top();
@@ -110,12 +106,10 @@ public class MainMenuState implements Screen {
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-       music.stop();
     }
 
     @Override

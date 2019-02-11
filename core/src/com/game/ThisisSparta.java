@@ -2,6 +2,7 @@ package com.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.Levels.*;
 
@@ -15,6 +16,7 @@ public class ThisisSparta extends Game {
 	public ControlsScreen controlsScreen;
 	public WinScreen winScreen;
 	public LoseScreen loseScreen;
+	private Music menuMusic;
 	
 	@Override
 	public void create () {
@@ -23,6 +25,9 @@ public class ThisisSparta extends Game {
 		controlsScreen=new ControlsScreen(this);
 		winScreen=new WinScreen(this);
 		loseScreen=new LoseScreen(this);
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Rise of spirit.mp3"));
+		menuMusic.setLooping(true);
+		menuMusic.play();
 
 		setScreen(mainMenu);
 	}
@@ -30,6 +35,7 @@ public class ThisisSparta extends Game {
 	public void changeScreen(String name){
 		if(name=="mainmenu") setScreen(mainMenu);
 		else if(name=="game") {
+			menuMusic.stop();
 			gameState=new GameState(this);
 			setScreen(gameState);
 			Gdx.input.setInputProcessor(null);
@@ -38,6 +44,7 @@ public class ThisisSparta extends Game {
 		else if(name=="win") setScreen(winScreen);
 		else if(name=="lose") setScreen(loseScreen);
 		else if(name=="exit") Gdx.app.exit();
+		if(name=="mainmenu" || name=="controls") menuMusic.play();
 	}
 
 	@Override
