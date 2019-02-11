@@ -9,3 +9,7 @@ https://lionheart963.itch.io/wizard
 
 Skin/buttons
 https://github.com/czyzby/gdx-skins/tree/master/craftacular
+
+Music
+https://opengameart.org/content/rise-of-spirit
+https://opengameart.org/content/battle-theme-a

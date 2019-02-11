@@ -2,6 +2,7 @@ package com.game.Levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,12 +23,17 @@ public class MainMenuState implements Screen {
     private TextButton ControlsButton;
     private Table menuTable;
     private Label title;
+    private Music music;
 
     public MainMenuState(ThisisSparta game) {
 
         this.game=game;
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("Rise of spirit.mp3"));
+        music.setLooping(true);
+        music.play();
+
         menuTable=new Table();
         menuTable.top();
         menuTable.setFillParent(true);
@@ -109,11 +115,10 @@ public class MainMenuState implements Screen {
 
     @Override
     public void hide() {
-
+       music.stop();
     }
 
     @Override
     public void dispose() {
-
     }
 }

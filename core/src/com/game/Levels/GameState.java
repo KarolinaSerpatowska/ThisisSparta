@@ -2,6 +2,7 @@ package com.game.Levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +29,7 @@ public class GameState implements Screen {
     private ArrayList<Enemy> enemies;
     private float timer;
     private Ghost ghost;
+    private Music music;
 
     public GameState(ThisisSparta game){
         this.game=game;
@@ -54,6 +56,10 @@ public class GameState implements Screen {
 
         timer=0;
         player.setEnemies(enemies);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("battleThemeA.mp3"));
+        music.setLooping(true);
+        music.play();
 
         gamecamera.zoom=0.2f;
 
@@ -146,7 +152,7 @@ public class GameState implements Screen {
 
     @Override
     public void hide() {
-
+        music.stop();
     }
 
     @Override
