@@ -113,7 +113,7 @@ public class GameState implements Screen {
 
         hud.setHp(player.getHp());
         hud.setScore(player.getScore());
-        hud.update(Gdx.graphics.getDeltaTime());
+        hud.update();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
