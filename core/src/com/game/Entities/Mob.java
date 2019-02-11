@@ -51,6 +51,7 @@ public abstract class Mob extends Sprite {
         if(hp<=0) {
             isdead = true;
         }
+        else isdead=false;
 
     }
 

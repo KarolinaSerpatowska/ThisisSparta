@@ -113,7 +113,7 @@ public class Player extends Mob {
             moveright=true;
             dx=2;
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+        else if(Gdx.input.isKeyPressed(Input.Keys.A) && x>(-32)) {
             moveleft=true;
             dx=-2;
         }
@@ -204,12 +204,12 @@ public class Player extends Mob {
 
     private boolean hasHorizontalCollisionwithEnemy(){
         for(int i=0; i<enemies.size();i++) {
-            if(this.getLeft().overlaps(enemies.get(i).getRight()) && dx<=0) {
+            if(this.getLeft().overlaps(enemies.get(i).getRight()) && dx<=0 && !enemies.get(i).isdead) {
                 curEnemy=enemies.get(i);
                 return true;
             }
 
-            if(this.getRight().overlaps(enemies.get(i).getLeft()) && dx>=0) {
+            if(this.getRight().overlaps(enemies.get(i).getLeft()) && dx>=0 && !enemies.get(i).isdead) {
                 curEnemy=enemies.get(i);
                 return true;
             }

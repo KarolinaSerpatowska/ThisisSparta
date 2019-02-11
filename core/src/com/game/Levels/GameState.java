@@ -52,7 +52,7 @@ public class GameState implements Screen {
         timer=0;
         player.setEnemies(enemies);
 
-       // gamecamera.zoom=0.2f;
+        gamecamera.zoom=0.2f;
 
     }
 
@@ -110,16 +110,15 @@ public class GameState implements Screen {
                 game.changeScreen("win");
         }
 
-       for (int i=0; i<enemies.size();i++){
-           if(enemies.get(i).isIsdead()) {
-               player.setScore();
-               enemies.remove(i);
-           }
-           else {
-               enemies.get(i).draw(game.batch);
-           }
-       }
-
+        if(!enemies.isEmpty()) {
+            for (int i = 0; i < enemies.size(); i++) {
+                if (enemies.get(i).isIsdead()) {
+                    player.setScore();
+                    enemies.remove(i);
+                }
+                enemies.get(i).draw(game.batch);
+            }
+        }
         game.batch.end();
 
         hud.setHp(player.getHp());

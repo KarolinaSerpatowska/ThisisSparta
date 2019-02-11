@@ -20,6 +20,7 @@ public class Enemy extends Mob {
     protected Animation<TextureRegion> idle;
     protected Animation<TextureRegion> run;
     protected Animation<TextureRegion> attackanim;
+    protected Animation<TextureRegion> deadanim;
     private float stateTimer;
     protected Texture spritesheet;
 
@@ -64,12 +65,17 @@ public class Enemy extends Mob {
         for (int j = 0; j < 8; j++) {
             attackFrames[index++] = tmp[2][j];
         }
+        tmp = TextureRegion.split(spritesheet,spritesheet.getWidth() / 8,spritesheet.getHeight() /7);
+        TextureRegion[] deadFrames = new TextureRegion[8];
+        index = 0;
+        for (int j = 7; j >=0; j--) {
+            deadFrames[index++] = tmp[3][j];
+        }
 
         run = new Animation<TextureRegion>(0.08f, walkFrames);
         idle=new Animation<TextureRegion>(0.08f, idleFrames);
         attackanim=new Animation<TextureRegion>(0.08f, attackFrames);
-
-
+        deadanim=new Animation<TextureRegion>(0.01f, deadFrames);
     }
 
     @Override
@@ -79,17 +85,17 @@ public class Enemy extends Mob {
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
-        if(hp<=0) isdead=true;
-        else isdead=false;
 
         if (hasHorizontalCollisionwithPlayer()){
             timer+= Gdx.graphics.getDeltaTime();
-            attack=true;
-            attack();
+            if(!isdead) {
+                attack = true;
+                attack();
+            }
         }
         else attack=false;
 
-        if (java.lang.Math.abs(x - player.getX()) <= 250) {
+        if (java.lang.Math.abs(x - player.getX()) <= 250 && !isdead) {
             if (player.getX()+64 < x && java.lang.Math.abs(y-player.getY())<=5) dx = -2;
             if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
         }
@@ -110,12 +116,16 @@ public class Enemy extends Mob {
             case ATTACK:
                 currentFrame=attackanim.getKeyFrame(stateTimer,true);
                 break;
+            case DEAD:
+                currentFrame=deadanim.getKeyFrame(stateTimer,false);
+                break;
         }
     }
 
     public State getState(){
-        if(moveleft) return State.RUN;
-        else if(attack) return  State.ATTACK;
+        if(isdead) return State.DEAD;
+        else if(moveleft) return State.RUN;
+        else if(attack) return State.ATTACK;
         else return State.IDLE;
     }
 
@@ -130,6 +140,11 @@ public class Enemy extends Mob {
             timer = 0;
             player.setHp(player.getHp() - dmg);
         }
+    }
+
+    public boolean isdeadanimend(){
+        if(deadanim.isAnimationFinished(stateTimer)) return true;
+        else return false;
     }
 
     private boolean hasHorizontalCollisionwithPlayer() {
