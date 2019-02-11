@@ -90,7 +90,6 @@ public class Player extends Mob {
             }
         }
 
-
         runRight = new Animation<TextureRegion>(0.08f, walkrightFrames);
         runLeft=new Animation<TextureRegion>(0.08f, walkleftFrames);
         idleRight=new Animation<TextureRegion>(0.1f,idleRightSheet);
@@ -123,9 +122,6 @@ public class Player extends Mob {
             moveleft=false;
             dx=0;
         }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) jump(10);
-
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             timer+= Gdx.graphics.getDeltaTime();
             dx=0;
@@ -182,11 +178,11 @@ public class Player extends Mob {
 
     @Override
     public void move() {
-        if(!hasHorizontalCollisionwithEnemy() && !hasHorizontalCollision()){
+        if(!hasHorizontalCollisionwithEnemy()){
            x+=dx;
            setX(x);
         }
-        if(!hasVerticalCollisionwithGround() && !hasVerticalCollisionwithEnemy() && !hasVerticalCollision()) {
+        if(!hasVerticalCollisionwithGround()) {
             y+=dy;
             setY(y);
         }
@@ -222,19 +218,6 @@ public class Player extends Mob {
         return false;
     }
 
-    protected boolean hasVerticalCollisionwithEnemy(){
-        for(int i=0; i<enemies.size();i++) {
-            if((this.getBot().overlaps(enemies.get(i).getTop()) && dy<0)) {
-                dy = 0;
-                enemies.get(i).setDx(0);
-                canjump=true;
-                falling=false;
-                return true;
-            } else falling=true;
-        }
-        return false;
-    }
-
     public int getScore() {
         return score;
     }
@@ -247,11 +230,6 @@ public class Player extends Mob {
     @Override
     public Rectangle getRight(){
         return new Rectangle(x+width-20, y+4, 20,height-8);
-    }
-
-    @Override
-    public Rectangle getTop(){
-        return new Rectangle(x+20, y+width-4, width-20,4);
     }
 
     @Override

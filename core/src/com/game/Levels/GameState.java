@@ -38,30 +38,20 @@ public class GameState implements Screen {
         world=new World();
         enemies=new ArrayList<Enemy>();
         player=new Player(new Sprite(new Texture("spartanidleright.png")),world);
-        float x=336;
         float y=64;
-        enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
-        enemies.get(0).setPosition(x,y);
-        x=592;
-        for(int i=1; i<3; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,256, player ));
+        float x=120;
+        for(int i=0; i<10; i++){
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
             enemies.get(i).setPosition(x,y);
             x+=128;
         }
-        x=656;
-        y=64;
-        enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
-        enemies.get(3).setPosition(x,y);
-        x+=128;
-        enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player ));
-        enemies.get(4).setPosition(x,y);
 
         ghost=new Ghost(new Sprite(new Texture("wizard idle.png")));
 
         timer=0;
         player.setEnemies(enemies);
 
-        gamecamera.zoom=0.5f;
+        gamecamera.zoom=0.2f;
 
     }
 
@@ -88,10 +78,6 @@ public class GameState implements Screen {
             x+=64;
         }
 
-        for(int i=0; i<world.getTiles().size();i++){
-            game.batch.draw(world.getTiles().get(i),world.getTiles().get(i).getX(),world.getTiles().get(i).getY());
-        }
-
 
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
@@ -114,6 +100,7 @@ public class GameState implements Screen {
         if(player.getHp()<=0){
             timer+= Gdx.graphics.getDeltaTime();
             if(timer>0.5){
+                timer=0;
                 game.changeScreen("mainmenu");
             }
         }
@@ -125,8 +112,8 @@ public class GameState implements Screen {
         x=100;
        for (int i=0; i<enemies.size();i++){
            if(enemies.get(i).isIsdead()) {
-               enemies.remove(i);
                player.setScore();
+               enemies.remove(i);
            }
            else {
                enemies.get(i).draw(game.batch);

@@ -13,7 +13,7 @@ public class Enemy extends Mob {
     private Player player;
     private float timer;
 
-    protected enum State{IDLE,RUN, ATTACK}
+    protected enum State{IDLE,RUN, ATTACK, DEAD}
     public State currentState;
     public State previousState;
     TextureRegion currentFrame;
@@ -22,7 +22,6 @@ public class Enemy extends Mob {
     protected Animation<TextureRegion> attackanim;
     private float stateTimer;
     protected Texture spritesheet;
-    protected boolean flip=false;
 
     public Enemy(Sprite sprite, World world, float x, float y, Player player) {
         super(sprite, world);
@@ -75,8 +74,8 @@ public class Enemy extends Mob {
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
-        if(dx>0) flip=true;
-        else flip=false;
+        if(hp<=0) isdead=true;
+        else isdead=false;
 
         if (hasHorizontalCollisionwithPlayer()){
             timer+= Gdx.graphics.getDeltaTime();
@@ -87,8 +86,7 @@ public class Enemy extends Mob {
 
         if (java.lang.Math.abs(x - player.getX()) <= 250) {
             if (player.getX()+64 < x && java.lang.Math.abs(y-player.getY())<=5) dx = -2;
-            if(x+64<player.getX() && java.lang.Math.abs(y-player.getY())<=5) dx=2;
-            else if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
+            if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
         }
         else dx = 0;
 
@@ -119,7 +117,7 @@ public class Enemy extends Mob {
     @Override
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
-        batch.draw(currentFrame, flip ? x+width : x, y, flip ? -width : width, height);
+        batch.draw(currentFrame,x,y);
     }
 
     public void attack() {

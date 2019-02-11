@@ -18,7 +18,6 @@ public abstract class Mob extends Sprite {
     protected int hp;
     protected int dmg;
     protected World world;
-    protected boolean canjump=true;
     protected boolean falling=true;
     protected boolean isdead=false;
     protected boolean canHit=false;
@@ -72,20 +71,12 @@ public abstract class Mob extends Sprite {
     }
 
     public void move(){
-        if(!hasHorizontalCollision()) {
-            x += dx;
-            setX(x);
-        }
-        if(!hasVerticalCollisionwithGround() && !hasVerticalCollision()){
+        x+=dx;
+        setX(x);
+
+        if(!hasVerticalCollisionwithGround()){
             y+=dy;
             setY(y);
-        }
-    }
-
-    protected void jump(double jumpHeight){
-        if(canjump){
-            dy+=jumpHeight;
-            canjump=false;
         }
     }
 
@@ -93,48 +84,14 @@ public abstract class Mob extends Sprite {
         if(falling)  dy-=gravity;
     }
 
-    protected boolean hasHorizontalCollision(){
-        for(int i=0; i<world.getTiles().size();i++) {
-            if(getLeft().overlaps(world.getRight(i)) && dx<0) {
-                dx = 0;
-                return true;
-            }
-            if(getRight().overlaps(world.getLeft(i)) && dx>0) {
-                dx = 0;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected boolean hasVerticalCollision(){
-        for(int i=0; i<world.getTiles().size();i++) {
-            if(this.getBot().overlaps(world.getTop(i)) && dy<0) {
-                dy = 0;
-                canjump=true;
-                falling=false;
-                return true;
-            } else falling=true;
-            if(this.getTop().overlaps(world.getBot(i)) && dy>0) {
-                dy = 0;
-                return true;
-            }
-        }
-        return false;
-    }
 
     protected boolean hasVerticalCollisionwithGround(){
             if(this.getBot().overlaps(world.getColliderGround()) && dy<0) {
                 dy = 0;
-                canjump=true;
                 falling=false;
                 return true;
             } else falling=true;
         return false;
-    }
-
-    public void setDx(float dx) {
-        this.dx = dx;
     }
 
     public Rectangle getLeft(){
@@ -143,10 +100,6 @@ public abstract class Mob extends Sprite {
 
     public Rectangle getRight(){
         return new Rectangle(x+width-4, y, 4,height);
-    }
-
-    public Rectangle getTop(){
-        return new Rectangle(x, y+width-4, width-20,4);
     }
 
     public Rectangle getBot(){

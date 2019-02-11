@@ -40,7 +40,7 @@ public class ControlsScreen implements Screen {
             }
         });
 
-        first=new Label("Movement: A - left D - right W - jump ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        first=new Label("Movement: A - left D - right ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         second=new Label("Attack: left mouse button ",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         first.setFontScale(5);
