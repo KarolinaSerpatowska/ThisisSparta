@@ -39,6 +39,7 @@ public class MainMenuState implements Screen {
                game.changeScreen("game");
             }
         });
+
         EXITbutton=new TextButton("Exit", skin);
         EXITbutton.addListener(new ChangeListener() {
             @Override
@@ -46,6 +47,7 @@ public class MainMenuState implements Screen {
                 game.changeScreen("exit");
             }
         });
+
         ControlsButton=new TextButton("Controls", skin);
         ControlsButton.addListener(new ChangeListener() {
             @Override

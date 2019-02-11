@@ -63,14 +63,6 @@ public abstract class Mob extends Sprite {
         this.hp = hp;
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
     public void move(){
         x+=dx;
         setX(x);
@@ -107,7 +99,4 @@ public abstract class Mob extends Sprite {
         return new Rectangle(x, y, width-20,4);
     }
 
-    public boolean isIsdead() {
-        return isdead;
-    }
 }

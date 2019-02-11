@@ -9,26 +9,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.Levels.GameState;
 import com.game.Levels.World;
 
-import java.util.ArrayList;
-
 public class Enemy extends Mob {
 
+    private enum State{IDLE,RUN, ATTACK, DEAD}
+    private State currentState;
+    private State previousState;
     private Player player;
     private float timer;
-
-    protected enum State{IDLE,RUN, ATTACK, DEAD}
-    public State currentState;
-    public State previousState;
-    TextureRegion currentFrame;
-    protected Animation<TextureRegion> idle;
-    protected Animation<TextureRegion> run;
-    protected Animation<TextureRegion> attackanim;
-    protected Animation<TextureRegion> deadanim;
+    private TextureRegion currentFrame;
+    private Animation<TextureRegion> idle;
+    private Animation<TextureRegion> run;
+    private Animation<TextureRegion> attackanim;
+    private Animation<TextureRegion> deadanim;
     private float stateTimer;
-    protected Texture spritesheet;
-    protected boolean settoDestroy=false;
-    protected GameState gameState;
+    private Texture spritesheet;
+    private boolean settoDestroy=false;
+    private GameState gameState;
     private float deadtimer;
+    private boolean isboss;
 
     public Enemy(Sprite sprite, World world, float x, float y, Player player, boolean boss, GameState gameState) {
         super(sprite, world);
@@ -39,6 +37,7 @@ public class Enemy extends Mob {
         this.gameState=gameState;
         dmg = 50;
         hp=30;
+        isboss=boss;
         width = sprite.getWidth();
         height = sprite.getHeight();
         this.player = player;
@@ -59,20 +58,16 @@ public class Enemy extends Mob {
             for (int j = 0; j < 8; j++) {
                 walkFrames[index++] = tmp[1][j];
             }
-
-        tmp = TextureRegion.split(spritesheet,spritesheet.getWidth() / 8,spritesheet.getHeight() /7);
         TextureRegion[] idleFrames = new TextureRegion[4];
         index = 0;
         for (int j = 0; j < 4; j++) {
             idleFrames[index++] = tmp[0][j];
         }
-        tmp = TextureRegion.split(spritesheet,spritesheet.getWidth() / 8,spritesheet.getHeight() /7);
         TextureRegion[] attackFrames = new TextureRegion[8];
         index = 0;
         for (int j = 0; j < 8; j++) {
             attackFrames[index++] = tmp[2][j];
         }
-        tmp = TextureRegion.split(spritesheet,spritesheet.getWidth() / 8,spritesheet.getHeight() /7);
         TextureRegion[] deadFrames = new TextureRegion[8];
         index = 0;
         for (int j = 7; j >=0; j--) {
@@ -113,7 +108,7 @@ public class Enemy extends Mob {
         if(settoDestroy){
             deadtimer+= Gdx.graphics.getDeltaTime();
             if(deadtimer>0.5) {
-                player.setScore();
+                player.setScore(isboss);
                 gameState.removeEnemy(this);
             }
         }
@@ -157,11 +152,6 @@ public class Enemy extends Mob {
             timer = 0;
             player.setHp(player.getHp() - dmg);
         }
-    }
-
-    public boolean isdeadanimend(){
-        if(deadanim.isAnimationFinished(stateTimer)) return true;
-        else return false;
     }
 
     private boolean hasHorizontalCollisionwithPlayer() {

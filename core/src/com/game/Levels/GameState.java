@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -48,7 +47,7 @@ public class GameState implements Screen {
         for(int i=10; i<14; i++){
             enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true,this ));
             enemies.get(i).setPosition(x,y);
-            x+=10;
+            x+=40;
         }
 
         ghost=new Ghost(new Sprite(new Texture("wizard idle.png")));

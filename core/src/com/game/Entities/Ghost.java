@@ -19,7 +19,7 @@ public class Ghost extends Sprite {
         this.setPosition(1772, 64);
         stateTimer=0;
         idleSheet=new Texture("wizard idle.png");
-        TextureRegion[][] tmp = TextureRegion.split(idleSheet,idleSheet.getWidth() / 10,idleSheet.getHeight() /1);
+        TextureRegion[][] tmp = TextureRegion.split(idleSheet,idleSheet.getWidth() / 10,idleSheet.getHeight());
         TextureRegion[] idleFrames = new TextureRegion[10];
         int index = 0;
             for (int j = 0; j < 10; j++) {
@@ -31,11 +31,11 @@ public class Ghost extends Sprite {
 
     @Override
     public void draw(Batch batch) {
-        update(Gdx.graphics.getDeltaTime());
+        update();
         batch.draw(currentFrame, this.getX(),this.getY());
     }
 
-    public void update(float delta) {
+    public void update() {
         currentFrame = idle.getKeyFrame(stateTimer, true);
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();

@@ -14,22 +14,21 @@ import java.util.ArrayList;
 
 public class Player extends Mob {
 
+    private enum State{IDLE_RIGHT, IDLE_LEFT, RUN_LEFT, RUN_RIGHT, ATTACK_RIGHT, ATTACK_LEFT}
+    private State currentState;
+    private State previousState;
+    private float stateTimer;
     private ArrayList<Enemy> enemies;
     private Enemy curEnemy;
     private float timer;
     private int score=0;
-
-    private enum State{IDLE_RIGHT, IDLE_LEFT, RUN_LEFT, RUN_RIGHT, ATTACK_RIGHT, ATTACK_LEFT}
-    public State currentState;
-    public State previousState;
-    TextureRegion currentFrame;
+    private TextureRegion currentFrame;
     private Animation<TextureRegion> idleRight;
     private Animation<TextureRegion> idleLeft;
     private Animation<TextureRegion> runRight;
     private Animation<TextureRegion> runLeft;
     private Animation<TextureRegion> attackRight;
     private Animation<TextureRegion> attackLeft;
-    private float stateTimer;
     private Texture runRightSheet;
     private TextureRegion idleRightSheet;
     private TextureRegion idleLeftSheet;
@@ -57,37 +56,29 @@ public class Player extends Mob {
         attackRightSheet=new Texture("spartanattackright.png");
         attackLeftSheet=new Texture("spartanattackleft.png");
 
-        TextureRegion[][] tmp = TextureRegion.split(runRightSheet,runRightSheet.getWidth() / 6,runRightSheet.getHeight() /1);
+        TextureRegion[][] tmp = TextureRegion.split(runRightSheet,runRightSheet.getWidth() / 6,runRightSheet.getHeight());
         TextureRegion[] walkrightFrames = new TextureRegion[6];
         int index = 0;
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 6; j++) {
-                walkrightFrames[index++] = tmp[i][j];
-            }
+        for (int j = 0; j < 6; j++) {
+            walkrightFrames[index++] = tmp[0][j];
         }
-        tmp = TextureRegion.split(runLeftSheet,runLeftSheet.getWidth() / 6,runLeftSheet.getHeight() /1);
+        tmp = TextureRegion.split(runLeftSheet,runLeftSheet.getWidth() / 6,runLeftSheet.getHeight());
         TextureRegion[] walkleftFrames = new TextureRegion[6];
         index = 0;
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 6; j++) {
-                walkleftFrames[index++] = tmp[i][j];
-            }
+        for (int j = 0; j < 6; j++) {
+            walkleftFrames[index++] = tmp[0][j];
         }
-        tmp = TextureRegion.split(attackRightSheet,attackRightSheet.getWidth() / 2,attackRightSheet.getHeight() /1);
+        tmp = TextureRegion.split(attackRightSheet,attackRightSheet.getWidth() / 2,attackRightSheet.getHeight());
         TextureRegion[] attackrightframes = new TextureRegion[2];
         index = 0;
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 2; j++) {
-                attackrightframes[index++] = tmp[i][j];
-            }
+        for (int j = 0; j < 2; j++) {
+            attackrightframes[index++] = tmp[0][j];
         }
-        tmp = TextureRegion.split(attackLeftSheet,attackLeftSheet.getWidth() / 2,attackLeftSheet.getHeight() /1);
+        tmp = TextureRegion.split(attackLeftSheet,attackLeftSheet.getWidth() / 2,attackLeftSheet.getHeight());
         TextureRegion[] attackleftframes = new TextureRegion[2];
         index = 0;
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 2; j++) {
-                attackleftframes[index++] = tmp[i][j];
-            }
+        for (int j = 0; j < 2; j++) {
+            attackleftframes[index++] = tmp[0][j];
         }
 
         runRight = new Animation<TextureRegion>(0.08f, walkrightFrames);
@@ -194,27 +185,27 @@ public class Player extends Mob {
         }
     }
 
-    public void setScore(){
-        score+=10;
-    }
-
-    public void setEnemies(ArrayList<Enemy> enemies) {
-        this.enemies = enemies;
-    }
-
     private boolean hasHorizontalCollisionwithEnemy(){
         for(int i=0; i<enemies.size();i++) {
             if(this.getLeft().overlaps(enemies.get(i).getRight()) && dx<=0 && !enemies.get(i).isdead) {
                 curEnemy=enemies.get(i);
                 return true;
             }
-
             if(this.getRight().overlaps(enemies.get(i).getLeft()) && dx>=0 && !enemies.get(i).isdead) {
                 curEnemy=enemies.get(i);
                 return true;
             }
         }
         return false;
+    }
+
+    public void setScore(boolean isboss){
+        if(isboss) score+=50;
+        else score+=10;
+    }
+
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
     }
 
     public int getScore() {
