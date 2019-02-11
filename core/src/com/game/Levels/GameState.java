@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -40,12 +41,12 @@ public class GameState implements Screen {
         float y=64;
         float x=120;
         for(int i=0; i<10; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,false ));
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,false,this ));
             enemies.get(i).setPosition(x,y);
             x+=128;
         }
         for(int i=10; i<14; i++){
-            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true ));
+            enemies.add(new Enemy(new Sprite(new Texture("ground.png")),world, x,y, player,true,this ));
             enemies.get(i).setPosition(x,y);
             x+=10;
         }
@@ -56,12 +57,6 @@ public class GameState implements Screen {
         player.setEnemies(enemies);
 
         gamecamera.zoom=0.2f;
-
-    }
-
-
-    @Override
-    public void show() {
 
     }
 
@@ -81,7 +76,6 @@ public class GameState implements Screen {
             game.batch.draw(world.getGround().get(i), x, 0);
             x+=64;
         }
-
 
         gamecamera.position.set(player.getX(), player.getY(), 0);
         gamecamera.update();
@@ -109,17 +103,11 @@ public class GameState implements Screen {
             }
         }
 
-        if(ghost.getX()-player.getX()<=15){
-                game.changeScreen("win");
-        }
+        if(ghost.getX()-player.getX()<=15) game.changeScreen("win");
 
         if(!enemies.isEmpty()) {
             for (int i = 0; i < enemies.size(); i++) {
-                if (enemies.get(i).isIsdead()) {
-                    player.setScore();
-                    enemies.remove(i);
-                }
-                if(!enemies.isEmpty()) enemies.get(i).draw(game.batch);
+                enemies.get(i).draw(game.batch);
             }
         }
         game.batch.end();
@@ -133,9 +121,18 @@ public class GameState implements Screen {
 
     }
 
+    public void removeEnemy(Enemy e){
+        enemies.remove(e);
+    }
+
     @Override
     public void resize(int width, int height) {
         gamePort.update(width,height);
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override

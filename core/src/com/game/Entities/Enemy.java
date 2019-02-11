@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.Levels.GameState;
 import com.game.Levels.World;
+
+import java.util.ArrayList;
 
 public class Enemy extends Mob {
 
@@ -23,13 +26,17 @@ public class Enemy extends Mob {
     protected Animation<TextureRegion> deadanim;
     private float stateTimer;
     protected Texture spritesheet;
+    protected boolean settoDestroy=false;
+    protected GameState gameState;
+    private float deadtimer;
 
-    public Enemy(Sprite sprite, World world, float x, float y, Player player, boolean boss) {
+    public Enemy(Sprite sprite, World world, float x, float y, Player player, boolean boss, GameState gameState) {
         super(sprite, world);
         this.x = x;
         this.y = y;
         this.setX(x);
         this.setY(y);
+        this.gameState=gameState;
         dmg = 50;
         hp=30;
         width = sprite.getWidth();
@@ -85,7 +92,6 @@ public class Enemy extends Mob {
         setRegion(currentFrame);
         stateTimer += Gdx.graphics.getDeltaTime();
 
-
         if (hasHorizontalCollisionwithPlayer()){
             timer+= Gdx.graphics.getDeltaTime();
             if(!isdead) {
@@ -100,6 +106,17 @@ public class Enemy extends Mob {
             if (java.lang.Math.abs(x - player.getX()) <= 50) dx = 0;
         }
         else dx = 0;
+
+        if(isdead) settoDestroy=true;
+        else settoDestroy=false;
+
+        if(settoDestroy){
+            deadtimer+= Gdx.graphics.getDeltaTime();
+            if(deadtimer>0.5) {
+                player.setScore();
+                gameState.removeEnemy(this);
+            }
+        }
 
     }
 
